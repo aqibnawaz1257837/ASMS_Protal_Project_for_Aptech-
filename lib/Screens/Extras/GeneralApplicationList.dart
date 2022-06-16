@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GeneralApplicationList extends StatefulWidget {
   const GeneralApplicationList({Key? key}) : super(key: key);
@@ -12,10 +13,9 @@ class _GeneralApplicationListState extends State<GeneralApplicationList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 20,
-
       itemBuilder: (context, index) {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0.sp),
         child: Container(
 
           decoration: BoxDecoration(

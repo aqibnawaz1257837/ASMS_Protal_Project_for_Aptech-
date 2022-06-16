@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class DatePicker extends StatelessWidget {
@@ -14,16 +15,16 @@ class DatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
       child: Container(
-          width: 150.0,
+          width: 150.sp,
           child: TextField(
             readOnly: true,
             controller: dateController,
             decoration: InputDecoration(
               labelText: label,
-              hintText: hint, hintStyle: TextStyle(fontSize: 12.0),
-              labelStyle: TextStyle(fontSize: 14.0) ,
+              hintText: hint, hintStyle: TextStyle(fontSize: 12.sp),
+              labelStyle: TextStyle(fontSize: 14.sp) ,
               border: OutlineInputBorder(),
             ),
             onTap: () async {

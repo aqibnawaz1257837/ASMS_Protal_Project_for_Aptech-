@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/Constraints/contraints.dart';
 import 'package:untitled/Models/user_data.dart';
-import 'package:untitled/QR%20CODE/QRCOde.dart';
-import 'package:untitled/Screens/Forms.dart';
-import 'package:untitled/Screens/NewsAndEvents.dart';
-import 'package:untitled/Screens/Service.dart';
-import 'package:untitled/Screens/ShowAttendence.dart';
+import 'package:untitled/Screens/ApplicationView/ApplicationList.dart';
+import 'package:untitled/Screens/AttendenceViews/QRCOde.dart';
+import 'package:untitled/Screens/LoginScreen.dart';
+import 'package:untitled/Screens/Extras/NewsAndEvents.dart';
+import 'package:untitled/Service/Service.dart';
 import 'package:untitled/Widgets/ReusableContainer.dart';
+import 'package:untitled/Widgets/dashboarditems.dart';
 
+import 'AttendenceViews/AttendenceReport.dart';
 import 'My_profile.dart';
 
 
@@ -39,8 +43,6 @@ class _DashBaordState extends State<DashBaord> {
   @override
   void initState() {
     // TODO: implement initState
-
-
     // userData=widget.userData!.obj;
     super.initState();
 
@@ -64,6 +66,9 @@ class _DashBaordState extends State<DashBaord> {
         UserData data=value;
 
         userData=data.obj;
+        print("jfkjs ${id}");
+
+
         setState(() {
           isLoading=false;
         });
@@ -71,8 +76,33 @@ class _DashBaordState extends State<DashBaord> {
     });
   }
 
+
+@override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+    print("i am deactivate");
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    print(" i am disposse");
+  }
   @override
   Widget build(BuildContext context) {
+
+
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: Size(320, 600),
+        context: context,
+        minTextAdapt: true,
+        orientation: Orientation.portrait);
+
     return isLoading?Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFFCAF17),
@@ -80,13 +110,15 @@ class _DashBaordState extends State<DashBaord> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
 
-            Text("ASMS Portal" , style: KApppBarName,),
+            Text("ASMS Portal"),
 
             IconButton(onPressed: (){
-              Navigator.pop(context);
+              logindata!.setBool('login', true);
+
+              Navigator.pushReplacement(
+                  context, new MaterialPageRoute(builder: (context) => LoginScreen()));
             },
                 icon: Icon(
-
                     Icons.power_settings_new
                 ))
 
@@ -107,9 +139,10 @@ class _DashBaordState extends State<DashBaord> {
             Text("ASMS Portal" , style: KApppBarName,),
 
             IconButton(onPressed: (){
+              logindata!.setBool('login', true);
 
-
-              Navigator.pop(context);
+              Navigator.pushReplacement(
+                  context, new MaterialPageRoute(builder: (context) => LoginScreen()));
             },
                 icon: Icon(
               Icons.power_settings_new
@@ -117,6 +150,7 @@ class _DashBaordState extends State<DashBaord> {
           ],
         ),
         centerTitle: true,
+        toolbarHeight: 44.h,
 
 
 
@@ -147,7 +181,7 @@ class _DashBaordState extends State<DashBaord> {
             ListTile(
               leading: Icon(Icons.person), title: Text("Profile"),
               onTap: () {
-                Route route = MaterialPageRoute(builder: (c)=> MyProfile());
+                Route route = MaterialPageRoute(builder: (c)=> MyProfile(userData));
                 Navigator.push(context, route);
                 },
             ),
@@ -155,48 +189,60 @@ class _DashBaordState extends State<DashBaord> {
             ListTile(
               leading: Icon(Icons.event_available), title: Text("News And Events"),
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Coming Soon")));
+
               },
             ),
 
             ListTile(
               leading: Icon(Icons.feedback), title: Text("Applications Forms"),
               onTap: () {
-                Route route = MaterialPageRoute(builder: (c)=> FOrms());
-                Navigator.push(context, route);
+                // Route route = MaterialPageRoute(builder: (c)=> FOrms());
+                // Navigator.push(context, route);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Coming Soon")));
+
                 },
             ),
 
             ListTile(
               leading: Icon(Icons.feedback), title: Text("Feedback"),
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Coming Soon")));
+
               },
             ),
 
             ListTile(
               leading: Icon(Icons.error_outline), title: Text("Complains"),
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Coming Soon")));
+
               },
             ),
 
             ListTile(
               leading: Icon(Icons.settings), title: Text("Settings"),
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Coming Soon")));
+
               },
             ),
             ListTile(
               leading: Icon(Icons.contacts), title: Text("Contact Us"),
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Coming Soon")));
+
               },
             ),
 
             SizedBox(
-              height: 10.0,
-              width: 30.0,
+              height: 10.h,
+              width: 30.w,
               child: Divider(
 
                 color: Colors.orange,
@@ -207,7 +253,9 @@ class _DashBaordState extends State<DashBaord> {
             ListTile(
               leading: Icon(Icons.logout), title: Text("SignOut"),
               onTap: () {
-                Navigator.pop(context);
+                logindata!.setBool('login', true);
+                Navigator.pushReplacement(
+                    context, new MaterialPageRoute(builder: (context) => LoginScreen()));
               },
             ),
 
@@ -223,23 +271,23 @@ class _DashBaordState extends State<DashBaord> {
 
 
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0 , horizontal: 10.0),
+          padding: EdgeInsets.symmetric(vertical: 10.h , horizontal: 10.0.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
 
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text("${userData!.name}" , style: TextStyle(fontSize: 25.0 , fontWeight: FontWeight.bold),),
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Container(child: Text("${userData!.name}" , style: TextStyle(fontSize: 20.sp , fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis)),
               ),
               GestureDetector(
                 onTap: (){
-                  Route route = MaterialPageRoute(builder: (c)=> MyProfile());
+                  Route route = MaterialPageRoute(builder: (c)=> MyProfile(userData));
                   Navigator.push(context, route);
                 },
                 child: CircleAvatar(
-                  radius: 30.0,
+                  radius: 30.r,
                   backgroundImage: NetworkImage("${userData!.image}"),
                 ),
               ),
@@ -247,69 +295,161 @@ class _DashBaordState extends State<DashBaord> {
           ),
         ),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("${userData!.totalAttendence}" , style: TextStyle(fontSize: 25.0 , fontWeight: FontWeight.bold),),
+        Container(
+          margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white70,
+            borderRadius: BorderRadius.circular(10.r)
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              dashboarditems(
+                value: "12",
+                keys: "Total Classes",
+              ),
+              dashboarditems(
+                value: "${userData!.totalAttendence}",
+                keys: "Attend Classes",
+              ),
 
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text("Attend Classes")
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("${userData!.totalAbsent}" , style: TextStyle(fontSize: 25.0 , fontWeight: FontWeight.bold),),
+              dashboarditems(
+                value: "${userData!.totalAbsent}",
+                keys: "Absents",
+              ),
 
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text("Absents")
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-
-                Text("${userData!.totalLeave}" , style: TextStyle(fontSize: 25.0 , fontWeight: FontWeight.bold),),
-
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text("Leaves")
-
-              ],
-            ),
-
-
-          ],
+              dashboarditems(
+                value: "${userData!.totalLeave}",
+                keys: "Leaves",
+              ),
+            ],
+          ),
         ),
 
 
 
 
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          padding: EdgeInsets.symmetric(vertical: 10.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.w),
                 child: GestureDetector(
                   onTap: (){
-
-                    print("Open Page");
-
+                    EasyLoading.show(status: 'loading...');
 
 
-                    Route route = MaterialPageRoute(builder: (c)=> QRViewExample());
-                    Navigator.push(context, route);
+                    Service.checkDateTime(userData!.stdid).then((value) {
+                      EasyLoading.dismiss();
+
+
+                      if(value=="0")
+                      {
+                        showDialod("Some Thing Wrong Conatact IT");
+                      }
+                      else if(value=="marked")
+                      {
+                        showDialod("Already Done Attendence");
+                      }
+                      else if(value=="timeout")
+                      {
+                        showDialod("Your Class Timing is ${userData!.timing}");
+                      }
+                      else if(value=="weekday_not_match")
+                      {
+                        showDialod("Your Class day is ${userData!.day}");
+                      }
+                      else if(value=="ok")
+                      {
+
+                      Route route = MaterialPageRoute(builder: (c)=> QRViewExample(userData));
+                      Navigator.push(context, route)
+                          .whenComplete(() {
+
+                        print("i am call back");
+                        fetchData();
+                      });
+                      }
+                      else
+                      {
+                        showDialod("Some Thing Wrong Conatact IT");
+
+                      }
+
+
+
+                    });
+
+                    // Route route = MaterialPageRoute(builder: (c)=> QRViewExample());
+                    // Navigator.push(context, route)
+                    //     .whenComplete(() {
+                    //
+                    //   print("i am call back");
+                    //   fetchData();
+                    // });
+
+                    // var slot = userData!.slot.split("-");
+                    //
+                    // print("slot ${slot}");
+                    // var starttime = slot[0].trim();
+                    // var endtime = slot[1].trim();
+                    //
+                    // DateTime tempstarttime = new DateFormat.Hm().parse(starttime);
+                    // DateTime tempendtime = new DateFormat.Hm().parse(endtime);
+                    //
+                    // TimeOfDay nowTime=TimeOfDay.now();
+                    //
+                    // final localizations = MaterialLocalizations.of(context);
+                    // final formattedTimeOfDay = localizations.formatTimeOfDay(nowTime);
+                    // DateTime curtempendtime = new DateFormat.Hm().parse(formattedTimeOfDay);
+                    //
+                    //
+                    //
+                    // final classStartTime = new TimeOfDay.fromDateTime(tempstarttime);
+                    // final classEndTime = new TimeOfDay.fromDateTime(tempendtime);
+                    // final classCurrTime = new TimeOfDay.fromDateTime(curtempendtime);
+                    //
+                    //
+                    // print("class Start time ${classStartTime.hour}");
+                    // print("class end time ${classEndTime.hour}");
+                    // print("class curr time ${classCurrTime.hour}");
+                    //
+                    //
+                    // print("logic ${classCurrTime.hour<=classEndTime.hour}");
+                    //
+                    // if(classCurrTime.hour>=classStartTime.hour && classCurrTime.hour<=classEndTime.hour)
+                    // {
+                    //   Route route = MaterialPageRoute(builder: (c)=> QRViewExample());
+                    //   Navigator.push(context, route)
+                    //       .whenComplete(() {
+                    //
+                    //     print("i am call back");
+                    //     fetchData();
+                    //   });
+                    // }
+                    // else
+                    // {
+                    //   showDialod("Your Class Timing is ${userData!.slot}");
+                    // }
+
+                  //  print("curr time ${classCurrTime.hour}");
+
+
+
+
+                 //    print("starttime${starttime},endtime${endtime.trim()}");
+                 //
+                 //    var now=DateTime.now();
+                 //
+                 //    var nowtime="${now.hour}:${now.minute}";
+                 //    DateTime tempstarttime = new DateFormat.Hm().parse(nowtime);
+                 // //   DateTime tempendtime = new DateFormat("hh:mm").parse(endtime);
+                 //
+                 //    print("starttime ${tempstarttime} ,");
+
 
                   },
                   child: ReUseableContainer(
@@ -320,11 +460,14 @@ class _DashBaordState extends State<DashBaord> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.w),
                 child: GestureDetector(
                   onTap: (){
-                    Route route = MaterialPageRoute(builder: (c)=> ShowAttendence());
+                    Route route = MaterialPageRoute(builder: (c)=> AttendenceReport(
+                      userData!.stdid
+                    ));
                     Navigator.push(context, route);
+
                   },
 
                   child: ReUseableContainer(
@@ -349,13 +492,14 @@ class _DashBaordState extends State<DashBaord> {
           children: <Widget>[
 
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.w),
               child: GestureDetector(
 
                 onTap: (){
 
                   Route route = MaterialPageRoute(builder: (c)=> NewsAndEvents());
                   Navigator.push(context, route);
+
                 },
                 child: ReUseableContainer(
                   iconData: Icons.event_available,
@@ -365,12 +509,13 @@ class _DashBaordState extends State<DashBaord> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.w),
               child: GestureDetector(
                 onTap: (){
 
-                  Route route = MaterialPageRoute(builder: (c)=> FOrms());
+                  Route route = MaterialPageRoute(builder: (c)=> ApplicationList());
                   Navigator.push(context, route);
+
                 },
                 child: ReUseableContainer(
                   iconData: Icons.dynamic_form,
@@ -395,5 +540,30 @@ class _DashBaordState extends State<DashBaord> {
     ),
     );
   }
+
+  showDialod(s){
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Msssage Alert"),
+          content: Text("${s}"),
+          actions: [
+
+            ElevatedButton(onPressed: (){
+              Navigator.pop(context);
+            }, child: Text("Ok"))
+          ],
+        );
+      },
+
+    );
+
+  }
+  void toast(String s) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${s}")));
+  }
 }
+
 

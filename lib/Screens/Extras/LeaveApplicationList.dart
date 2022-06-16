@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LeaveApplicationList extends StatefulWidget {
   const LeaveApplicationList({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _LeaveApplicationListState extends State<LeaveApplicationList> {
 
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.sp),
           child: Container(
 
             decoration: BoxDecoration(

@@ -1,19 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/Constraints/contraints.dart';
+import 'package:untitled/Models/user_data.dart';
 import 'package:untitled/Widgets/ResuableProfileTiles.dart';
 
 
 class MyProfile extends StatefulWidget {
-  const MyProfile({Key? key}) : super(key: key);
+
+  Obj? userData;
+   MyProfile(this.userData);
 
   @override
   _MyProfileState createState() => _MyProfileState();
 }
 
 class _MyProfileState extends State<MyProfile> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    print("aqqqib ${widget.userData?.image}");
+
+
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: Size(320, 600),
+        context: context,
+        minTextAdapt: true,
+        orientation: Orientation.portrait);
+
     return Scaffold(
 
       appBar: AppBar(
@@ -29,42 +49,43 @@ class _MyProfileState extends State<MyProfile> {
 
         ClipPath(
         child: Container(
-          height: 150,
+          height: 100.h,
           color: Color(0xFFFCAF17),
         ),
           clipper: CustomClipPath(),
         ),
 
             CircleAvatar(
-              backgroundImage: AssetImage("images/aqib.jpg"),
-              radius: 82.0,
+              backgroundImage: NetworkImage("${widget.userData?.image}"),
+              radius: 62.r,
             ),
             SizedBox(
-              height: 15.0,
+              height: 15.0.h,
             ),
 
             Column(
               children: <Widget>[
-                Text("Aqib Nawaz" ,style: KProfileNameText
+                Text("${widget.userData!.name}" ,style: KProfileNameText
                 ),
                 SizedBox(
-                  height: 10.0,
+                  height: 10.0.h,
                 ),
 
-                Text("Studnet1122565" , style: KProfileStidText),
+                Text("${widget.userData!.stdid}" , style: KProfileStidText),
                 SizedBox(
-                  height: 10.0,
+                  height: 10.0.h,
                 ),
-                Text("Aqibnawaz015@gmail.com" , style: KProfileEmailText),
+                Text("${widget.userData!.email}" , style: KProfileEmailText),
                 SizedBox(
-                  height: 10.0,
+                  height: 10.0.h,
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.h),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0)
+                      color: Colors.white54,
+                      borderRadius: BorderRadius.circular(10.r)
                     ),
                     child: ExpansionTile(
                       title: Text("Student Information"),
@@ -79,84 +100,72 @@ class _MyProfileState extends State<MyProfile> {
 
                             ResuableProfileTiles(
                               keys: "Enrollment",
-                              value: "Student1122666",
+                              value: "${widget.userData!.stdid}",
 
                             ),
 
-                            //
-                            // ResuableProfileTiles(
-                            //
-                            // ),
-
                             ResuableProfileTiles(
                               keys: "Father Name:",
-                              value: "Nawaz Ahmed",
+                              value: "${widget.userData!.fname}",
 
                             ),
                             ResuableProfileTiles(
                               keys: "Faculty Name:",
-                              value: "Sir Shabeer",
+                              value: "${widget.userData!.faculty}",
 
                             ),
                             ResuableProfileTiles(
                               keys: "Batch Code:",
-                              value: "PR-202002F",
+                              value: "${widget.userData!.batch}",
+                            ),
+                            ResuableProfileTiles(
+                              keys: "Current Semester:",
+                              value: "${widget.userData!.semester}",
                             ),
                             ResuableProfileTiles(
                               keys: "Batch Start Date:",
-                              value: "20/02/2020",
+                              value: "${widget.userData!.semester}",
                             ),
                             ResuableProfileTiles(
-                              keys: "Time Slot",
-                              value: "5pm to 7pm",
+                              keys: "Time Slot:",
+                              value: "${widget.userData!.timing}",
                             ),
                             ResuableProfileTiles(
-                              keys: "Days",
-                              value: "MWF",
+                              keys: "Days:",
+                              value: "${widget.userData!.day}",
                             ),
                             ResuableProfileTiles(
-                              keys: "Course",
-                              value: "Course",
+                              keys: "Course:",
+                              value: "${widget.userData!.program}",
                             ),
                             ResuableProfileTiles(
-                              keys: "NIC Number",
-                              value: "42101-8504486-6",
+                              keys: "NIC Number:",
+                              value: "${widget.userData!.cnic}",
                             ),
                             ResuableProfileTiles(
-                              keys: "PTCL Number",
-                              value: "Mein nahi btwoan gya",
+                              keys: "Father Number:",
+                              value: "${widget.userData!.fphone}",
                             ),
                             ResuableProfileTiles(
-                              keys: "Cell Number",
-                              value: "Mein nahi btwoan gya",
+                              keys: "Cell Number:",
+                              value: "${widget.userData!.phone}",
                             ),
                             ResuableProfileTiles(
-                              keys: "Address",
-                              value: "Mein Q nahi btwoan gya",
+                              keys: "Address:",
+                              value: "${widget.userData!.address}",
                             ),
 
                           ],
                         ),
-
-
                       ],
                     ),
                   ),
                 )
-
-
-
               ],
             )
-
-
-
-
           ],
         ),
       ),
-
-
     );
   }
 }

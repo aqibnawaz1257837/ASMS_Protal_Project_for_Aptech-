@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:untitled/Constraints/contraints.dart';
 
@@ -32,8 +33,8 @@ class GeneralForm extends StatelessWidget {
 
 
               Container(
-                height: 100.0,
-                width: 100.0,
+                height: 100.h,
+                width: 100.w,
 
                 child: Lottie.asset("assets/abc.json"),
 
@@ -41,7 +42,7 @@ class GeneralForm extends StatelessWidget {
 
 
               Padding(
-                padding: const EdgeInsets.only(top: 90.0),
+                padding: EdgeInsets.only(top: 50.h),
                 child: Row(
                   children: <Widget>[
 
@@ -52,14 +53,14 @@ class GeneralForm extends StatelessWidget {
                       children: <Widget>[
 
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                          child: Text("To" , style: TextStyle(fontSize: 16.0 , fontWeight: FontWeight.bold),),
+                          padding: EdgeInsets.symmetric(horizontal: 12.h),
+                          child: Text("To" , style: TextStyle(fontSize: 16.sp , fontWeight: FontWeight.bold),),
                         ),
 
                         Container(
-                          width: 180.0,
+                          width: 160.w,
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(10.sp),
 
                             child: TextFormField(
                               controller: editingControllerto,
@@ -68,9 +69,9 @@ class GeneralForm extends StatelessWidget {
                               decoration: InputDecoration(
                                 hintText: "Sir Aqib",
                                 labelText: "To",
-                                labelStyle: TextStyle(fontSize: 20.0) ,
+                                labelStyle: TextStyle(fontSize: 20.sp) ,
                                 border: OutlineInputBorder(),
-                                errorStyle: TextStyle(fontSize: 16.0 , color: Colors.redAccent) ,
+                                errorStyle: TextStyle(fontSize: 16.sp , color: Colors.redAccent) ,
                               ),
 
                               validator: (value){
@@ -96,14 +97,14 @@ class GeneralForm extends StatelessWidget {
                       children: <Widget>[
 
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                          child: Text("The" ,style: TextStyle(fontSize: 16.0 , fontWeight: FontWeight.bold),),
+                          padding: EdgeInsets.symmetric(horizontal: 12.h),
+                          child: Text("The" ,style: TextStyle(fontSize: 16.sp , fontWeight: FontWeight.bold),),
                         ),
 
                         Container(
-                          width: 180.0,
+                          width: 160.w,
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(10.sp),
 
                             child: TextFormField(
                               controller: editingControllerto,
@@ -112,9 +113,9 @@ class GeneralForm extends StatelessWidget {
                               decoration: InputDecoration(
                                 hintText: "Sir Shabeer",
                                 labelText: "The",
-                                labelStyle: TextStyle(fontSize: 20.0) ,
+                                labelStyle: TextStyle(fontSize: 20.sp) ,
                                 border: OutlineInputBorder(),
-                                errorStyle: TextStyle(fontSize: 16.0 , color: Colors.redAccent) ,
+                                errorStyle: TextStyle(fontSize: 16.sp , color: Colors.redAccent) ,
                               ),
 
                               validator: (value){
@@ -147,7 +148,7 @@ class GeneralForm extends StatelessWidget {
 
               Container(
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(10.sp),
 
                   child: TextFormField(
                     controller: editingControllerthe,
@@ -156,9 +157,9 @@ class GeneralForm extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: "Subject",
                       labelText: "Subject",
-                      labelStyle: TextStyle(fontSize: 20.0) ,
+                      labelStyle: TextStyle(fontSize: 20.sp) ,
                       border: OutlineInputBorder(),
-                      errorStyle: TextStyle(fontSize: 16.0 , color: Colors.redAccent) ,
+                      errorStyle: TextStyle(fontSize: 16.sp , color: Colors.redAccent) ,
                     ),
 
                     validator: (value){
@@ -178,7 +179,7 @@ class GeneralForm extends StatelessWidget {
 
               Container(
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(10.sp),
 
                   child: TextFormField(
                     maxLength: 250,
@@ -188,9 +189,9 @@ class GeneralForm extends StatelessWidget {
                     autofocus: false,
                     decoration: InputDecoration(
                       hintText: "Body",
-                      labelStyle: TextStyle(fontSize: 20.0) ,
+                      labelStyle: TextStyle(fontSize: 20.sp) ,
                       border: OutlineInputBorder(),
-                      errorStyle: TextStyle(fontSize: 16.0 , color: Colors.redAccent) ,
+                      errorStyle: TextStyle(fontSize: 16.sp , color: Colors.redAccent) ,
                     ),
 
                     validator: (value){

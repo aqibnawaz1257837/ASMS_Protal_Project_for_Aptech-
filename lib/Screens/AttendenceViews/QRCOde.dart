@@ -4,14 +4,20 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/Models/GetQrData.dart';
 import 'package:untitled/Models/user_data.dart';
 import 'package:untitled/Screens/DashBoard.dart';
-import 'package:untitled/Screens/Service.dart';
+import 'package:untitled/Service/Service.dart';
 
-class QRViewExample extends StatefulWidget {
+class
+QRViewExample extends StatefulWidget {
+  Obj? userData;
+  QRViewExample(this.userData);
+
 
 
   @override
@@ -32,6 +38,7 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   SharedPreferences? logindata;
 
+  SharedPreferences? storeOfDate;
 
 
   getId()async{
@@ -55,6 +62,10 @@ class _QRViewExampleState extends State<QRViewExample> {
     // TODO: implement initState
     super.initState();
     getId();
+    // print(myData(
+    //     "[59,173,83,88,148,148,165,149,155,88,108,90,129,132,96,98,107,99,101,152,94,99,120,94,103,120,90,93,82,90,147,161,162,156,89,109,88,127,134,94,161,153,151,155,150,150,89,95,81,89,151,146,166,152,88,108,90,98,107,96,98,107,96,99,98,99,97,89,95,81,89,166,165,167,151,150,160,167,144,155,151,88,82,109,140,89,134,165,167,151,150,160,167,98,99,106,101,103,105,106,89,95,88,133,167,166,150,152,159,166,100,98,105,103,102,104,108,88,94,90,132,166,168,149,151,161,165,99,100,104,102,104,103,107,90,93,89,134,165,167,151,150,160,167,98,99,106,101,103,105,106,89,95,88,133,167,166,150,152,159,166,100,98,105,103,102,104,108,88,94,90,132,166,168,149,151,161,165,99,100,104,102,104,103,107,90,93,89,134,165,167,151,150,160,167,98,99,106,101,103,105,106,89,95,88,133,167,166,150,152,159,166,100,98,105,103,102,104,108,88,94,90,132,166,168,149,151,161,165,99,100,104,102,104,103,107,90,93,89,134,165,167,151,150,160,167,98,99,106,101,103,105,106,89,95,88,133,167,166,150,152,159,166,100,98,105,103,102,104,108,88,94,90,132,166,168,149,151,161,165,99,100,104,102,104,103,107,90,93,89,134,165,167,151,150,160,167,98,99,106,101,103,105,106,89,95,88,133,167,166,150,152,159,166,100,98,105,103,102,104,108,88,94,90,132,166,168,149,151,161,165,99,100,104,102,104,103,107,90,93,89,134,165,167,151,150,160,167,98,99,106,101,103,105,106,89,95,88,133,167,166,150,152,159,166,100,98,105,103,102,104,108,88,94,90,132,166,168,149,151,161,165,99,100,104,102,104,103,107,90,93,89,134,165,167,151,150,160,167,98,99,106,101,103,105,106,89,95,142,82,176]",
+    //     "123"
+    // ));
   }
 
   @override
@@ -62,9 +73,22 @@ class _QRViewExampleState extends State<QRViewExample> {
     mc = context;
 
     nexScreen?Navigator.pop(context):null;
+
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: Size(320, 600),
+        context: context,
+        minTextAdapt: true,
+        orientation: Orientation.portrait);
+
     return Scaffold(
       appBar: AppBar(title: Text("Scan Qr Code"),
-      actions: [
+        backgroundColor: Color(0xFFFCAF17),
+        toolbarHeight: 44.h,
+
+        actions: [
         IconButton(onPressed: ()async{
           await controller?.flipCamera();
 
@@ -97,8 +121,8 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-        MediaQuery.of(context).size.height < 400)
+    var scanArea = (MediaQuery.of(context).size.width < 400.w ||
+        MediaQuery.of(context).size.height < 400.w)
         ? 350.0
         : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
@@ -115,9 +139,9 @@ class _QRViewExampleState extends State<QRViewExample> {
       },
       overlay: QrScannerOverlayShape(
           borderColor: Colors.green,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
+          borderRadius: 10.r,
+          borderLength: 30.h,
+          borderWidth: 10.w,
           cutOutSize: scanArea),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
@@ -184,8 +208,8 @@ class _QRViewExampleState extends State<QRViewExample> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                  width: 50,
-                  height: 50,
+                  width: 50.w,
+                  height: 50.h,
                   child: CircularProgressIndicator()),
             ],
           ),
@@ -195,30 +219,69 @@ class _QRViewExampleState extends State<QRViewExample> {
     );
 
   }
+  myData(content,String passcode) {
+    var result = [];var str = '';
 
+    var codesArr = json.decode(content);
+
+    var passLen = passcode.length ;
+
+    for(var i = 0  ; i < codesArr.length ; i++) {
+      var passOffset = i%passLen ;
+
+      var calAscii = (codesArr[i]-passcode.codeUnitAt(passOffset));
+      result.add(calAscii) ;
+    }
+    for(var i = 0 ; i < result.length ; i++) {
+      var ch = String.fromCharCode(result[i]); str += ch ;
+    }
+    return str ;
+  }
+
+  myEncrpyt(content) {
+    var result = [];
+    var resultasci = [];
+
+    var str = '';
+
+    // var codesArr = json.decode(content);
+
+
+    for(var i = 0  ; i < content.codeUnits.length ; i++) {
+      var calAscii = (content.codeUnits[i]-2);
+      result.add(calAscii) ;
+    }
+    for(var i = 0 ; i < result.length ; i++) {
+      var ch = String.fromCharCode(result[i]);
+      str += ch ;
+    }
+    return str ;
+  }
   void readData(QRViewController controller) {
-    controller.scannedDataStream.first.then((value){
+    controller.scannedDataStream.first.then((value)async {
       print("fdf  ${value.code}");
 
 
-      Map<String,dynamic> data=jsonDecode(value.code.toString());
+      Map<String,dynamic> data=jsonDecode(await myEncrpyt(value.code.toString()));
 
-
+      print("fdfsd  ${data.toString()}");
       if(data.isNotEmpty) {
-        getQrData = getQrDataFromJson(value.code.toString());
+
+        print(myEncrpyt(value.code.toString()));
+        getQrData = getQrDataFromJson(await myEncrpyt(value.code.toString()));
 
 
-        print("sjsdhj  ${getQrData!.stdid[0]}  ${getQrData!.stdid[1]} ${id}");
+        print("sjsdhj  ${getQrData}  ");
 
 
         int count=0;
         for(int i=0;i<getQrData!.stdid.length;i++)
         {
-          if (getQrData!.stdid[i] == id) {
+          if (getQrData!.stdid[i] == widget.userData!.id) {
 
             // Navigator.pop(context);
             showLoader();
-            Service.insertAttendence(getQrData!.batchcode,getQrData!.stdid[i], getQrData!.book).then((value) {
+            Service.insertAttendence(widget.userData!.batch,widget.userData!.stdid, getQrData!.book).then((value) {
 
               print("dfdffdfdfdfd ${value}");
 
@@ -227,7 +290,10 @@ class _QRViewExampleState extends State<QRViewExample> {
                 toast("Success");
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
+
+
                 showDialod("Mark Attendence Successfully");
+
 
               }
               else
@@ -296,7 +362,23 @@ class _QRViewExampleState extends State<QRViewExample> {
 
 
       }
+      else{
+        toast("Something Wrong ");
+      }
     });
   }
-
+//   Future<void> setData(id)async{
+//
+//     var now = new DateTime.now();
+//     var formatter = new DateFormat('yyyy-MM-dd');
+//     String formattedDate = formatter.format(now);
+// print("save date ${formattedDate}");
+//
+//     storeOfDate = await SharedPreferences.getInstance();
+//
+//     await storeOfDate!.setString('currDate', formattedDate);
+//     print("save date ${storeOfDate!.getString("currDate")}");
+//
+//
+//   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
@@ -15,11 +16,11 @@ class ReUseableContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
 
-      height: 250.0,
-      width: 160.0,
+      height: 160.h,
+      width: 140.w,
       decoration: BoxDecoration(
         color: Color(0xFFFCAF17),
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(20.r),
 
       ),
       child: Column(
@@ -31,20 +32,22 @@ class ReUseableContainer extends StatelessWidget {
 
           Icon(
             iconData,
-            size: 72.0,
+            size: 72.sp,
             color: Colors.white,
           ),
 
           SizedBox(
-            height: 12.0,
+            height: 12.h,
           ),
 
 
-          Text(text , style: TextStyle(
+          Text(text ,
+            textAlign: TextAlign.center,
+            style: TextStyle(
 
               color: Colors.white ,
               fontWeight: FontWeight.w600,
-              fontSize: 18.0
+              fontSize: 18.sp
           ),)
 
         ],

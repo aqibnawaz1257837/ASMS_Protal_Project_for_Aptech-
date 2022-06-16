@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/Constraints/contraints.dart';
 import 'package:untitled/Models/LoginData.dart';
 import 'package:untitled/Models/user_data.dart';
 import 'package:untitled/Screens/DashBoard.dart';
 
-import 'Service.dart';
+import '../Service/Service.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController textEditingControllerID = TextEditingController();
   TextEditingController textEditingControllerPhoneNo = TextEditingController();
@@ -26,36 +27,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
   LoginData? loginData;
 
-   SharedPreferences? logindata;
+   SharedPreferences? storelogindata;
 
 
   @override
   void initState() {
     // TODO: implement initState
 
-    textEditingControllerID.text="Student1226122";
-    textEditingControllerPhoneNo.text="3151234567";
-    shareInit();
+    textEditingControllerID.text="Student1194778";
+    textEditingControllerPhoneNo.text="923118471069";
     super.initState();
   }
 
-  shareInit() async{
-    logindata = await SharedPreferences.getInstance();
-   bool newuser = (logindata!.getBool('login') ?? true);
-    print(newuser);
-    if (newuser == false) {
-      Navigator.pushReplacement(
-          context, new MaterialPageRoute(builder: (context) => DashBaord()));
-    }
-
-
-  }
   @override
   Widget build(BuildContext context) {
+
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: Size(320, 600),
+        context: context,
+        minTextAdapt: true,
+        orientation: Orientation.portrait);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFFCAF17),
         title: Text("ASMS Portal" , style: KApppBarName),
+
+
+        toolbarHeight: 44.h,
+
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -67,45 +70,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
               Padding(
-                padding: const EdgeInsets.only(top: 100.0 , bottom: 100.0),
-                child: Container(
-                  width: 250.0,
-                  child: Hero(
-                    tag: "hero",
-                    child: Image(
-                      image: AssetImage("images/Aptech Learning-03.png"),
-                    ),
-                  ),
-                  // decoration: BoxDecoration(
-                  //   color: Colors.amber[100],
-                  //   borderRadius: BorderRadius.circular(10.0),
-                  //   image: DecorationImage(
-                  //     image: AssetImage("images/Aptech Learning-03.png"),
-                  //   )
-                  // ),
+                padding: EdgeInsets.only(top: 50.h , bottom: 50.h),
+                child:Image(
+                  image: AssetImage("images/Aptech Learning-03.png" ),
+                  fit: BoxFit.fill,
+                  height: 100.h,
+                  width: 220.w,
                 ),
               ),
 
               SizedBox(
-                height: 10.0,
+                height: 10.w,
               ),
 
 
 
               Container(
+                height: 60.h,
+
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(top:10.h , right: 10.w , left: 10.w),
                   child: TextFormField(
                     controller: textEditingControllerID,
                     keyboardType: TextInputType.text,
-
+                    style: TextStyle(fontSize: 14.sp),
                     autofocus: false,
                     decoration: InputDecoration(
                       labelText: "Student ID",
                       hintText: "StudentXXXXXX",
-                      labelStyle: TextStyle(fontSize: 20.0) ,
+                      hintStyle:TextStyle(fontSize: 14.sp),
+
+                      labelStyle: TextStyle(fontSize: 14.sp) ,
                       border: OutlineInputBorder(),
-                      errorStyle: TextStyle(fontSize: 16.0 , color: Colors.redAccent) ,
+                      errorStyle: TextStyle(fontSize: 14.sp , color: Colors.redAccent) ,
                     ),
 
 
@@ -124,19 +121,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               Container(
+                height: 60.h,
+
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(top:10.h , right: 10.w , left: 10.w),
 
                   child: TextFormField(
                     controller: textEditingControllerPhoneNo,
+                    style: TextStyle(fontSize: 14.sp),
                     keyboardType: TextInputType.number,
                     autofocus: false,
                     decoration: InputDecoration(
                       hintText: "315XXXXXXX",
+                      hintStyle:TextStyle(fontSize: 14.sp),
                       labelText: "Phone no",
-                      labelStyle: TextStyle(fontSize: 20.0) ,
+                      labelStyle: TextStyle(fontSize: 14.sp) ,
                       border: OutlineInputBorder(),
-                      errorStyle: TextStyle(fontSize: 16.0 , color: Colors.redAccent) ,
+                      errorStyle: TextStyle(fontSize: 14.sp , color: Colors.redAccent) ,
                     ),
 
                     validator: (value){
@@ -153,11 +154,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
 
+
+              SizedBox(
+                height: 20.h,
+              ),
+
               Container(
-                width: 180.0,
+                width: 180.w,
+                height: 35.h,
                 child: ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Color(0xFFFCAF17))
+
+                        backgroundColor: MaterialStateProperty.all(Color(0xFFFCAF17)),
                     ),
                     onPressed: (){
 
@@ -183,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
                     },
-                    child: Text("Signin")),
+                    child: Text("Signin" , style: TextStyle(fontSize: 14.sp),)),
               ),
 
               Visibility(
@@ -225,14 +233,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
         print(loginData!.obj.stdid);
 
-        logindata!.setBool('login', false);
-        logindata!.setString('id', loginData!.obj.stdid);
-        Route route = MaterialPageRoute(builder: (_)=> DashBaord());
-        Navigator.push(context, route);
+        setData(loginData!.obj.stdid).then((value) {
+
+          Route route = MaterialPageRoute(builder: (_)=> DashBaord());
+          Navigator.pushReplacement(context, route);
+
+        });
 
       }
-
     });
+  }
+  Future<void> setData(id)async{
 
+    storelogindata = await SharedPreferences.getInstance();
+
+   await storelogindata!.setBool('login', false);
+   await storelogindata!.setString('id', loginData!.obj.stdid);
   }
 }
