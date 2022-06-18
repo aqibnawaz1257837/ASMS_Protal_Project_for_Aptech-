@@ -1,42 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-const KApppBarName = TextStyle(
-    color: Colors.white, fontSize: 24.0 , letterSpacing: 3.0 , fontWeight: FontWeight.w600
+TextStyle KApppBarName = TextStyle(
+    color: Colors.white, fontSize: 20.sp , fontWeight: FontWeight.w600
 );
 
-const KTabTitleName = TextStyle(color: Colors.white
+TextStyle KTabTitleName = TextStyle(color: Colors.white
     , fontWeight: FontWeight.bold , fontSize: 20.0);
 
-const KProfileNameText = TextStyle(
+TextStyle KProfileNameText = TextStyle(
     color: Colors.black,
-    fontSize: 32.0,
+    fontSize: 22.sp,
     fontWeight: FontWeight.bold,
   letterSpacing: 3.0
 );
 
-const KProfileStidText = TextStyle(
+TextStyle KProfileStidText = TextStyle(
     color: Colors.black,
-    fontSize: 16.0,
+    fontSize: 14.sp,
     fontWeight: FontWeight.bold,
-    letterSpacing: 1.0
+    letterSpacing: 0.5
 );
 
-const KProfileEmailText = TextStyle(
+TextStyle KProfileEmailText = TextStyle(
     color: Colors.black,
-    fontSize: 18.0,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w300,
-    letterSpacing: 1.0
+    letterSpacing: 0.5
 );
 
-const KProfileTileKEyName =  TextStyle(
+TextStyle KProfileTileKEyName =  TextStyle(
 color: Colors.black,
-fontWeight: FontWeight.bold,
-fontSize: 16.0
+fontWeight: FontWeight.w700,
+fontSize: 16.sp
 );
 
-const KProfileTileValueName = TextStyle(
+TextStyle KProfileTileValueName = TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.w400,
-    fontSize: 14.0
+    // overflow: TextOverflow.ellipsis,
+    fontSize: 14.sp
 );
+
+TextStyle KNumberValue = TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 20.sp
+);
+
+
+TextStyle KNumberValueDashBoard = TextStyle(fontSize: 20.sp , fontWeight: FontWeight.bold);

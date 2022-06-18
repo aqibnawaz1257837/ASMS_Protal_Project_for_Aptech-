@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'MyHomePage.dart';
+import 'DashBoard.dart';
+import 'LoginScreen.dart';
 import '../main.dart';
 
 
@@ -23,17 +26,19 @@ class _MySpleashScreenState extends State<MySpleashScreen> with SingleTickerProv
   Animation? animation;
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller!.dispose();
+  }
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
     Timer(Duration(milliseconds: 3000),
-            ()=>Navigator.pushReplacement(context,
-            MaterialPageRoute(builder:
-                (context) =>
-                MyHomePage()
-            )
-        )
+            ()=>shareInit()
     );
 
 
@@ -54,9 +59,32 @@ class _MySpleashScreenState extends State<MySpleashScreen> with SingleTickerProv
 
   }
 
+  shareInit() async{
+    SharedPreferences logindata;
+
+    logindata = await SharedPreferences.getInstance();
+    bool newuser = (logindata.getBool('login') ?? true);
+    print(newuser);
+    if (newuser == false) {
+      Navigator.pushReplacement(
+          context, new MaterialPageRoute(builder: (context) => DashBaord()));
+    }
+    else
+    {
+      Navigator.pushReplacement(
+          context, new MaterialPageRoute(builder: (context) => LoginScreen()));
+
+    }
+
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    ScreenUtil.init(context, designSize:  Size(320,600),minTextAdapt: true);
+
     return Scaffold(
       // backgroundColor: Color(0xFFFCAF17),
       backgroundColor: animation!.value,
@@ -66,17 +94,11 @@ class _MySpleashScreenState extends State<MySpleashScreen> with SingleTickerProv
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-
-
             Container(
-              height: 250.0,
-              width: 250.0,
+              height: 180.h,
+              width: 180.w,
               child: Lottie.asset("assets/abc.json"),
-
-
             ),
-
-
 
 
             Container(
@@ -86,8 +108,8 @@ class _MySpleashScreenState extends State<MySpleashScreen> with SingleTickerProv
                   image: AssetImage("images/Aptech Learning-03.png"),
                 ),
               ),
-              height: 350.0,
-              width: 350.0,
+              height: 270.h,
+              width: 270.w,
               // decoration: BoxDecoration(
               //     color: Colors.amber[100],
               //     borderRadius: BorderRadius.circular(10.0),
@@ -100,10 +122,10 @@ class _MySpleashScreenState extends State<MySpleashScreen> with SingleTickerProv
 
               animatedTexts: [
 
-                TyperAnimatedText("ASMS Portal Applicaiton" ,textStyle: TextStyle(
+                TyperAnimatedText("ASMS Portal Application" ,textStyle: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 32.0),
+                fontSize: 28.sp),
                   speed: Duration(milliseconds: 100)
                 ),
 

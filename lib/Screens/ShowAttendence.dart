@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/Constraints/contraints.dart';
 
-import 'DatePickers.dart';
 
 
 class ShowAttendence extends StatefulWidget {
-  const ShowAttendence({Key? key}) : super(key: key);
 
   @override
   _ShowAttendenceState createState() => _ShowAttendenceState();
@@ -24,26 +23,26 @@ class _ShowAttendenceState extends State<ShowAttendence> {
 
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-
-
-                DatePicker(
-                  label: "Enter Start Date",
-                  hint: "Start Date",
-                ),
-                SizedBox(width: 20,),
-
-                DatePicker(
-                  label: "Enter End Date",
-                  hint: "End Date",
-                ),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(vertical: 16.h),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: <Widget>[
+          //
+          //
+          //       DatePicker(
+          //         label: "Enter Start Date",
+          //         hint: "Start Date",
+          //       ),
+          //       SizedBox(width: 20.w),
+          //
+          //       DatePicker(
+          //         label: "Enter End Date",
+          //         hint: "End Date",
+          //       ),
+          //     ],
+          //   ),
+          // ),
 
 
           Expanded(
@@ -52,17 +51,17 @@ class _ShowAttendenceState extends State<ShowAttendence> {
                 itemCount: 20,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.sp),
                       child: Container(
-                        height: 50.0,
+                        height: 50.h,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0)
+                          borderRadius: BorderRadius.circular(10.r)
                         ),
                         child: Card(
                           elevation: 2.0,
                           shadowColor: Colors.amber,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            padding: EdgeInsets.symmetric(horizontal: 20.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -88,23 +87,42 @@ class _ShowAttendenceState extends State<ShowAttendence> {
 
 
           Padding(
-            padding: const EdgeInsets.only(left: 10.0 , right: 10.0),
+            padding: EdgeInsets.only(left: 10.h , right: 10.h),
             child: Container(
-              height: 60.0,
+              height: 55.h,
               decoration: BoxDecoration(
                 color: Colors.amber,
-                borderRadius: BorderRadius.circular(10.0)
+                borderRadius: BorderRadius.circular(10.r)
               ),
               child: Row(
                 children: <Widget>[
 
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(10.sp),
                     child: Column(
                       children: <Widget>[
 
-                        Text("Total Classes" ,style: KProfileEmailText,),
-                        Text("Attend Classes" , style: KProfileEmailText,),
+
+
+                        Row(
+
+                          children: <Widget>[
+                            Text("Total Classes" ,style: KProfileEmailText,),
+                            SizedBox(width:160.sp,),
+                            Text("12" ,style: KNumberValue,),
+
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Attend Classes" , style: KProfileEmailText,),
+                            SizedBox(width: 145.sp,),
+
+                            Text("10" , style: KNumberValue,),
+
+                          ],
+                        ),
 
                       ],
                     ),
